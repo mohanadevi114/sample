@@ -1,0 +1,333 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberShield | Security Dashboard</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #0b1120;
+            color: #e5e7eb;
+        }
+
+        header {
+            background: #111c32;
+            padding: 22px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #24344f;
+        }
+
+        header h2 {
+            color: #38bdf8;
+        }
+
+        header span {
+            color: #4ade80;
+            font-size: 14px;
+        }
+
+        .container {
+            padding: 35px 8%;
+        }
+
+        .welcome {
+            margin-bottom: 28px;
+        }
+
+        .welcome h1 {
+            margin-bottom: 10px;
+        }
+
+        .welcome p {
+            color: #94a3b8;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: #111c32;
+            border: 1px solid #24344f;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .card h3 {
+            color: #94a3b8;
+            font-size: 15px;
+        }
+
+        .number {
+            font-size: 30px;
+            font-weight: bold;
+            margin: 16px 0 8px;
+            color: #38bdf8;
+        }
+
+        .safe {
+            color: #4ade80;
+        }
+
+        .panel {
+            background: #111c32;
+            border: 1px solid #24344f;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .panel h2 {
+            margin-bottom: 18px;
+            font-size: 21px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            background: #0b1120;
+            border: 1px solid #334155;
+            border-radius: 7px;
+            color: white;
+            margin: 10px 0;
+            outline: none;
+        }
+
+        button {
+            background: #0284c7;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        button:hover {
+            background: #0369a1;
+        }
+
+        .result {
+            margin-top: 15px;
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+        }
+
+        .tips p {
+            margin: 12px 0;
+            color: #cbd5e1;
+        }
+
+        footer {
+            text-align: center;
+            padding: 22px;
+            color: #64748b;
+            border-top: 1px solid #24344f;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 20px;
+            }
+
+            .container {
+                padding: 25px 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>🛡 CyberShield</h2>
+    <span>● Demo Dashboard</span>
+</header>
+
+<main class="container">
+
+    <section class="welcome">
+        <h1>Security Dashboard</h1>
+        <p>Explore basic security checks and protect your digital identity.</p>
+    </section>
+
+    <section class="cards">
+        <div class="card">
+            <h3>System Status</h3>
+            <div class="number safe">Demo</div>
+            <p>Dashboard is running</p>
+        </div>
+
+        <div class="card">
+            <h3>Threats Detected</h3>
+            <div class="number">--</div>
+            <p>No live scan connected</p>
+        </div>
+
+        <div class="card">
+            <h3>Password Checker</h3>
+            <div class="number">Ready</div>
+            <p>Test password strength locally</p>
+        </div>
+    </section>
+
+    <section class="panel">
+        <h2>🔑 Password Strength Checker</h2>
+        <p>Enter a sample password to check its basic strength.</p>
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Enter a sample password"
+            autocomplete="off"
+        >
+
+        <button onclick="checkPassword()">Check Strength</button>
+        <div class="result" id="passwordResult"></div>
+        <p style="color:#94a3b8; margin-top:10px; font-size:13px;">
+            Demo only. Do not enter your real password.
+        </p>
+    </section>
+
+    <section class="panel">
+        <h2>🌐 Suspicious URL Checker</h2>
+        <p>Check a URL for a few common warning signs.</p>
+
+        <input
+            type="text"
+            id="url"
+            placeholder="Example: http://example.com"
+        >
+
+        <button onclick="checkURL()">Check URL</button>
+        <div class="result" id="urlResult"></div>
+        <p style="color:#94a3b8; margin-top:10px; font-size:13px;">
+            This is a basic heuristic demo, not a real-time phishing detector.
+        </p>
+    </section>
+
+    <section class="panel tips">
+        <h2>💡 Security Tips</h2>
+        <p>✓ Use unique passwords for different accounts.</p>
+        <p>✓ Enable two-factor authentication.</p>
+        <p>✓ Avoid opening unknown links and attachments.</p>
+        <p>✓ Keep your operating system and applications updated.</p>
+        <p>✓ Never share OTPs or passwords with others.</p>
+    </section>
+
+</main>
+
+<footer>
+    CyberShield © 2026 | Beginner Cybersecurity Project
+</footer>
+
+<script>
+    function checkPassword() {
+        const password = document.getElementById("password").value;
+        const result = document.getElementById("passwordResult");
+
+        if (!password) {
+            result.textContent = "Please enter a sample password.";
+            result.style.color = "#facc15";
+            return;
+        }
+
+        let score = 0;
+
+        if (password.length >= 8) score++;
+        if (password.length >= 12) score++;
+        if (/[A-Z]/.test(password) &&
+            /[a-z]/.test(password)) score++;
+        if (/[0-9]/.test(password)) score++;
+        if (/[^A-Za-z0-9]/.test(password)) score++;
+
+        let message;
+
+        if (score <= 2) {
+            message = "Weak — use a longer, more varied password.";
+            result.style.color = "#f87171";
+        } else if (score <= 3) {
+            message = "Moderate — improve length and variety.";
+            result.style.color = "#facc15";
+        } else {
+            message = "Stronger by these basic checks.";
+            result.style.color = "#4ade80";
+        }
+
+        result.textContent = message;
+    }
+
+    function checkURL() {
+        const input = document.getElementById("url").value.trim();
+        const result = document.getElementById("urlResult");
+
+        if (!input) {
+            result.textContent = "Please enter a URL.";
+            result.style.color = "#facc15";
+            return;
+        }
+
+        let parsedURL;
+
+        try {
+            parsedURL = new URL(input);
+        } catch {
+            result.textContent = "Invalid URL format.";
+            result.style.color = "#f87171";
+            return;
+        }
+
+        if (!["http:", "https:"].includes(parsedURL.protocol)) {
+            result.textContent = "Warning: Unsupported URL protocol.";
+            result.style.color = "#f87171";
+            return;
+        }
+
+        const warnings = [];
+
+        if (parsedURL.protocol === "http:") {
+            warnings.push("Uses unencrypted HTTP");
+        }
+
+        if (parsedURL.username || parsedURL.password) {
+            warnings.push("Contains credentials in the URL");
+        }
+
+        if (parsedURL.hostname.startsWith("xn--") ||
+            parsedURL.hostname.includes(".xn--")) {
+            warnings.push("Contains an internationalized domain label");
+        }
+
+        if (parsedURL.hostname.split(".").length > 4) {
+            warnings.push("Has an unusually long subdomain structure");
+        }
+
+        if (warnings.length > 0) {
+            result.textContent =
+                "Caution: " + warnings.join("; ") +
+                ". Verify the website independently.";
+            result.style.color = "#facc15";
+        } else {
+            result.textContent =
+                "No listed warning signs found. This does NOT prove the URL is safe.";
+            result.style.color = "#4ade80";
+        }
+    }
+</script>
+
+</body>
+</html>
